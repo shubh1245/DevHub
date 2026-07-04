@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/database");
 const dns = require("dns");
 const app = express();
+app.use(express.json());    //this middleware convert the json into javascript object for storing in database
 const bcrypt = require("bcrypt");
 //dns for connecting ton the mongoDB because of some error in node 24v.
 dns.setServers([
@@ -9,22 +10,50 @@ dns.setServers([
   '8.8.8.8'
 ])
 const User = require("./models/user");
-const { validateSignUpData } = require("./utils/validation")
+const { validateSignUpData } = require("./utils/validation");
 
-app.use(express.json());    //this middleware convert the json into javascript object for storing in database
+//signUp API
 
 app.post("/signup", async (req, res) => {
   try{
     //Data Validating
-    validateSignUpData();
-    //Encrypting password
-
+    validateSignUpData(req);
+    //Encrypting passwor
+    const { firstName , lastName , emailId , password}= req.body;
+    const passwordHash = await bcrypt.hash(password,10);
     //creating a new instance for the user model
-    const user = new User(req.body);
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password : passwordHash,
+  });
     await user.save();
     res.send("User added successfully....");
   } catch (err) {
     res.status(400).send("ERROR : "+ err.message);
+  }
+});
+
+//login API
+
+app.post("/login", async(req,res)=>{
+  try{
+    const {emailId,password} = req.body;
+    const user = await User.findOne({emailId : emailId})
+    if(!user){
+      throw new Error("Invalid credential")
+    }
+    const isPasswordValid = await bcrypt.compare(password , user.password) //always return true and false
+    if (isPasswordValid){
+      res.send("Login Successfull")
+    }
+    else {
+      throw new Error("Invalid credential")
+    }
+  }
+  catch(err){
+    res.status(400).send("Error : "+ err.message);
   }
 });
 

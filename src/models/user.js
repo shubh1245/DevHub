@@ -31,16 +31,10 @@ const userSchema = new mongoose.Schema({
   password : {
     type : String,
     required : true,
-    validate (value){
-      if(!validator.isStrongPassword(value)){
-        throw new Error ("Enter strong password : "+value)
-      }
-    }
   },
 
   age : {
     type : Number,
-    required : true,
     min : 18,
   },
 
@@ -58,16 +52,15 @@ const userSchema = new mongoose.Schema({
   },
   skill : {
     type : [String],
-    }
-  },
-  photoUrl : {
+    },
+  photoUrl :  {
     type : String,
     validate (value){
       if (!validator.isURL(value)){
-        throw new error ("Invalid error : "+ value)
-      }
-    }
-  }
+        throw new Error ("Invalid URL : "+ value);
+      }  //if
+    }      //validate
+  }    //photourl
 },
  {
     timestamps : true
