@@ -2,23 +2,29 @@ const express = require("express");
 const connectDB = require("./config/database");
 const dns = require("dns");
 const app = express();
+const bcrypt = require("bcrypt");
 //dns for connecting ton the mongoDB because of some error in node 24v.
 dns.setServers([
   '1.1.1.1',
   '8.8.8.8'
 ])
 const User = require("./models/user");
+const { validateSignUpData } = require("./utils/validation")
 
 app.use(express.json());    //this middleware convert the json into javascript object for storing in database
 
 app.post("/signup", async (req, res) => {
-  //creating a new instance for the user model
-  const user = new User(req.body);
-  try {
+  try{
+    //Data Validating
+    validateSignUpData();
+    //Encrypting password
+
+    //creating a new instance for the user model
+    const user = new User(req.body);
     await user.save();
     res.send("User added successfully....");
   } catch (err) {
-    res.status(400).send("Error in saving the user" + err.message);
+    res.status(400).send("ERROR : "+ err.message);
   }
 });
 
@@ -89,11 +95,28 @@ const userId = req.body.userId;
 
 //Updating data with patch API
 
-app.patch("/user", async(req,res)=>{
-
-  const userId = req.body.userId;
+app.patch("/user/:userId", async(req,res)=>{
+  const userId = req.params?.userId
   const data = req.body;
+
   try{
+
+    const ALLOWED_UPDATES = [
+      "gender",
+      "about",
+      "skill",
+      "photoUrl",
+      "firstName",
+      "lastName",
+      "age"
+    ]
+    const isUpdateAllowed = Object.keys(data).every((k) => ALLOWED_UPDATES.includes(k));
+      if(!isUpdateAllowed){
+        throw new Error("Update not allowed")
+      }
+      if(data?.skill.length>10){
+        throw new Error("Skill must be less than 10")
+      }
     const user = await User.findByIdAndUpdate({_id:userId} , 
       data , 
       {
@@ -118,7 +141,6 @@ connectDB()
   .catch((err) => {
     console.log("Database Connection cannot be Established... ");
     console.error(err);
-
   })
 
 
