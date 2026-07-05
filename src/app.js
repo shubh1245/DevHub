@@ -2,8 +2,13 @@ const express = require("express");
 const connectDB = require("./config/database");
 const dns = require("dns");
 const app = express();
+const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken");
+
+app.use(cookieParser());    //this middleware used to parse the cookies to read its value
 app.use(express.json());    //this middleware convert the json into javascript object for storing in database
 const bcrypt = require("bcrypt");
+
 //dns for connecting ton the mongoDB because of some error in node 24v.
 dns.setServers([
   '1.1.1.1',
@@ -46,6 +51,10 @@ app.post("/login", async(req,res)=>{
     }
     const isPasswordValid = await bcrypt.compare(password , user.password) //always return true and false
     if (isPasswordValid){
+        //create jwt token
+         
+        const token = await jwt.sign({_id : user._id},"shubham5421");
+        res.cookie("token",token);
       res.send("Login Successfull")
     }
     else {
@@ -56,6 +65,28 @@ app.post("/login", async(req,res)=>{
     res.status(400).send("Error : "+ err.message);
   }
 });
+
+//Profile API
+
+app.get("/profile",async(req,res)=>{
+  try{
+  const cookie = req.cookies;
+  const { token } = cookie;
+  if (!token){
+    throw new Error("Invalid Token");
+  }
+  const decodeMessage = await jwt.verify(token ,"shubham5421")
+  const { _id } = decodeMessage;
+  const user = await User.findById(_id);
+  if(!user){
+    throw new Error("User not exist");
+  }
+  res.send(user);
+  }
+  catch(err){
+    res.status(400).send("ERROR : "+ err.message);
+  }
+})
 
 //finding one particular document from the collection
 app.get("/user", async (req, res) => {
