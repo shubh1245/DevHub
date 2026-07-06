@@ -4,6 +4,7 @@ const dns = require("dns");
 const app = express();
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken");
+const { userAuth } = require("./middlewares/auth");
 
 app.use(cookieParser());    //this middleware used to parse the cookies to read its value
 app.use(express.json());    //this middleware convert the json into javascript object for storing in database
@@ -23,7 +24,7 @@ app.post("/signup", async (req, res) => {
   try{
     //Data Validating
     validateSignUpData(req);
-    //Encrypting passwor
+    //Encrypting password
     const { firstName , lastName , emailId , password}= req.body;
     const passwordHash = await bcrypt.hash(password,10);
     //creating a new instance for the user model
@@ -68,19 +69,9 @@ app.post("/login", async(req,res)=>{
 
 //Profile API
 
-app.get("/profile",async(req,res)=>{
+app.get("/profile",userAuth,async(req,res)=>{
   try{
-  const cookie = req.cookies;
-  const { token } = cookie;
-  if (!token){
-    throw new Error("Invalid Token");
-  }
-  const decodeMessage = await jwt.verify(token ,"shubham5421")
-  const { _id } = decodeMessage;
-  const user = await User.findById(_id);
-  if(!user){
-    throw new Error("User not exist");
-  }
+  const user = req.user;
   res.send(user);
   }
   catch(err){
