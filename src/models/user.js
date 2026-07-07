@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
   },
   skill : {
     type : [String],
-    },
+  },
   photoUrl :  {
     type : String,
     validate (value){
