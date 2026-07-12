@@ -1,70 +1,78 @@
-🚀 DevHub
+# 🚀 DevHub
 
-A full-stack developer networking platform inspired by DevTinder, built using the MERN Stack. DevHub allows developers to create profiles, discover other developers, send connection requests, and build their professional network.
+A full-stack developer networking platform built using the **MERN Stack**. DevHub allows developers to create profiles, discover other developers, send connection requests, and build their professional network.
 
-📌 Features
+---
 
-👤 Authentication
-User Signup
-User Login
-JWT Authentication
-Password Hashing using bcrypt
-Secure Cookies
-Logout
+## 📌 Features
 
-📝 Profile Management
-View Profile
-Edit Profile
-Update Profile Picture
-Update Skills
-About Section
-Validation for User Data
+### 👤 Authentication
+- User Signup
+- User Login
+- JWT Authentication
+- Password Hashing using bcrypt
+- Secure Cookies
+- Logout
 
-🤝 Connection System
-Send Connection Request
-Accept Connection Request
-Reject Connection Request
-Ignore Connection Request
-View Pending Requests
-View Connections
+### 📝 Profile Management
+- View Profile
+- Edit Profile
+- Update Profile Picture
+- Update Skills
+- About Section
+- Validation for User Data
 
-🔍 Feed
-Browse Developer Profiles
-Excludes Existing Connections
-Excludes Pending Requests
-Pagination Support
+### 🤝 Connection System
+- Send Connection Request
+- Accept Connection Request
+- Reject Connection Request
+- Ignore Connection Request
+- View Pending Requests
+- View Connections
 
-🛡️ Security
-JWT Authentication
-Password Encryption
-Request Validation
-MongoDB Validation
-Protected Routes
+### 🔍 Feed
+- Browse Developer Profiles
+- Excludes Existing Connections
+- Excludes Pending Requests
+- Pagination Support
 
-🛠️ Tech Stack
+### 🛡️ Security
+- JWT Authentication
+- Password Encryption
+- Request Validation
+- MongoDB Validation
+- Protected Routes
 
-Frontend
-React.js
-Tailwind CSS
-Axios
-React Router DOM
+---
 
-Backend
-Node.js
-Express.js
-MongoDB
-Mongoose
+# 🛠️ Tech Stack
 
-Authentication
-JWT
-bcrypt
+## Frontend
+- React.js
+- Tailwind CSS
+- Axios
+- React Router DOM
 
-Other Tools
-Postman
-Git
-GitHub
+## Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
 
-📂 Project Structure
+## Authentication
+- JWT
+- bcrypt
+
+## Other Tools
+- Postman
+- Git
+- GitHub
+
+---
+
+# 📂 Project Structure
+
+```text
 DevHub
 │
 ├── backend
@@ -86,46 +94,60 @@ DevHub
 │   └── package.json
 │
 └── README.md
+```
 
-🚀 Future Improvements
+---
 
-Real-time Chat
-Video Calling
-Notifications
-Search Developers
-Skill-based Recommendations
-GitHub Integration
-LinkedIn Integration
-Dark Mode
-Email Verification
-Forgot Password
-Profile Verification
-Admin Dashboard
 
-🧪 Testing
-Backend APIs can be tested using Postman.
+# 🚀 Future Improvements
 
-📚 Learning Outcomes
+- Real-time Chat
+- Video Calling
+- Notifications
+- Search Developers
+- Skill-based Recommendations
+- GitHub Integration
+- LinkedIn Integration
+- Dark Mode
+- Email Verification
+- Forgot Password
+- Profile Verification
+- Admin Dashboard
+
+---
+
+# 🧪 Testing
+
+Backend APIs can be tested using **Postman**.
+
+---
+
+# 📚 Learning Outcomes
 
 This project helped in understanding:
-REST APIs
-Express.js
-MongoDB
-Mongoose
-Authentication using JWT
-Password Hashing
-Cookies
-Middleware
-Error Handling
-MVC Pattern
-Database Relationships
-Pagination
-Backend Architecture
-React Fundamentals
-State Management
-API Integration
 
-👨‍💻 Author
+- REST APIs
+- Express.js
+- MongoDB
+- Mongoose
+- Authentication using JWT
+- Password Hashing
+- Cookies
+- Middleware
+- Error Handling
+- MVC Pattern
+- Database Relationships
+- Pagination
+- Backend Architecture
+- React Fundamentals
+- State Management
+- API Integration
 
-Shubham Kumar
+---
+
+
+# 👨‍💻 Author
+
+**Shubham Kumar**
+
 MCA Student | MERN Stack Developer | Java Developer
