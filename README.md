@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 # 🚀 DevHub
 
 A full-stack developer networking platform built using the **MERN Stack**. DevHub allows developers to create profiles, discover other developers, send connection requests, and build their professional network.
@@ -153,4 +152,3 @@ This project helped in understanding:
 **Shubham Kumar**
 
 MCA Student | MERN Stack Developer | Java Developer
->>>>>>> d8de7592cb5c51f649dcf6f8420656eab9f5e9b4
