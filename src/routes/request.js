@@ -12,20 +12,20 @@ try{
 //this api is only for ignore and interested 
   const allowedStatus = ["ignored","interested"]
   if(!allowedStatus.includes(status)){
-    return res.status(400).json1({
+    return res.status(400).json({
       message : "Invalid status type " + status
     });
   }
 
 //If there is existing ConnectionRequest
-  const existingConnection = await ConnectionRequest.findOne({
+  const existingConnectionRequest = await ConnectionRequest.findOne({
     $or: [
       {fromUserId,toUserId},
       {fromUserId : toUserId, toUserId : fromUserId}
     ],
   });
-  if(existingConnection){
-    res.status(400).send("Connection already exist")
+  if(existingConnectionRequest){
+    return res.status(400).send({message : "Connection already exist"})
   }
   const connectionRequest = new ConnectionRequest({
     fromUserId,
@@ -34,7 +34,7 @@ try{
   });
   const data = await connectionRequest.save();
   res.json({
-    message  : "Connection request sent successfully! ",
+    message  :("connected"),
     data,
   })
 }

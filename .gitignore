@@ -1,3 +1,5 @@
 node_modules/
 postman/
-.postman/
+.postman/ 
+
+README.md
